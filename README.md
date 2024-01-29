@@ -1,0 +1,1 @@
+black and white to colored manga image translation
