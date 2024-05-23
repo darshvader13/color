@@ -10,7 +10,7 @@ from .dataset import *
 
 def gen_inference_new(
     data, root_folder: Path, weights_name: str, nf_factor: int = 2, arch=models.resnet101) -> Learner:
-    learn = gen_learner_wide(
+    learn = gen_learner_deep(
         data=data, gen_loss=F.l1_loss, nf_factor=nf_factor, arch=arch
     )
     learn.path = root_folder
