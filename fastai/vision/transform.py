@@ -303,14 +303,12 @@ skew = TfmCoord(_skew)
 
 def _grayscale(x):
     "Convert RGB image to grayscale by averaging the channels"
-    # Assuming x is a PyTorch tensor with shape [C, H, W]
     if x.shape[0] == 3:
-        # Weighted average to better mimic human perception
         return (0.299 * x[0] + 0.587 * x[1] + 0.114 * x[2]).unsqueeze(0).expand(3, -1, -1)
     return x
 grayscale = TfmPixel(_grayscale)
 
-def get_transforms(do_flip:bool=True, flip_vert:bool=False, use_grayscale:bool=True, max_rotate:float=10., max_zoom:float=1.1,
+def get_transforms(do_flip:bool=True, flip_vert:bool=False, use_grayscale:bool=False, max_rotate:float=10., max_zoom:float=1.1,
                    max_lighting:float=0.2, max_warp:float=0.2, p_affine:float=0.75, p_lighting:float=0.75, 
                    xtra_tfms:Optional[Collection[Transform]]=None)->Collection[Transform]:
     "Utility func to easily create a list of flip, rotate, `zoom`, warp, lighting transforms."
