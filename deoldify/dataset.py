@@ -3,8 +3,6 @@ sys.path.insert(0, '../.')
 
 from fastai import *
 from fastai.vision import *
-from DeOldify.fastai.vision.data import ImageDataBunch
-from DeOldify.fastai.vision.transform import get_transforms
 from fastai.vision.data import ImageDataBunch
 from fastai.vision.transform import get_transforms
 from pathlib import Path
