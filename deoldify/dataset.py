@@ -12,7 +12,7 @@ from pathlib import Path
 def get_colorize_data(
     sz: int,
     bs: int,
-    path: Path,  # Now only one path is used for both crappy and good images
+    path: Path,
     random_seed: int = None,
     keep_pct: float = 1.0,
     num_workers: int = 8,
@@ -26,7 +26,7 @@ def get_colorize_data(
         .split_by_rand_pct(0.1, seed=random_seed)
     )
     data = (
-        src.label_from_func(lambda x: x)  # The label is the same file in this setup
+        src.label_from_func(lambda x: x)
         .transform(
             get_transforms(
                 use_grayscale=True, xtra_tfms=xtra_tfms
