@@ -7,9 +7,6 @@ from fastai.vision.transform import get_transforms
 from fastai.vision.data import ImageImageList, ImageDataBunch, imagenet_stats
 from PIL import Image
 
-def convert_to_greyscale(img: Image) -> Image:
-    return img.convert("L").convert("RGB")
-
 def get_colorize_data(
     sz: int,
     bs: int,
@@ -20,6 +17,9 @@ def get_colorize_data(
     stats: tuple = imagenet_stats,
     xtra_tfms=[],
 ) -> ImageDataBunch:
+    
+    def convert_to_greyscale(img: Image) -> Image:
+        return img.convert("L").convert("RGB").resize((sz, sz))
 
     src = (
         ImageImageList.from_folder(colored_path, convert_mode='RGB')
