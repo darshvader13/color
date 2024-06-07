@@ -33,7 +33,7 @@ def get_colorize_data(
             tfm_y=False
         )
         .databunch(bs=bs, num_workers=num_workers, no_check=True)
-        .normalize(stats, do_y=True)
+        .normalize(stats, do_y=False)
     )
     data.c = 3
     return data
