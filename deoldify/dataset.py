@@ -40,5 +40,5 @@ def get_colorize_data(
 def get_dummy_databunch() -> ImageDataBunch:
     path = Path('./dummy/')
     return get_colorize_data(
-        sz=1, bs=1, crappy_path=path, good_path=path, keep_pct=0.001
+        sz=1, bs=1, bw_path=path, color_path=path, keep_pct=0.001
     )
