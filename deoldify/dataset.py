@@ -1,16 +1,14 @@
-import sys
-sys.path.insert(0, '../.')
-
 from fastai import *
-from fastai.vision import *
-from fastai.vision.data import ImageDataBunch
+from fastai.core import *
 from fastai.vision.transform import get_transforms
-from pathlib import Path
+from fastai.vision.data import ImageImageList, ImageDataBunch, imagenet_stats
+
 
 def get_colorize_data(
     sz: int,
     bs: int,
-    path: Path,
+    bw_path: Path,
+    color_path: Path,
     random_seed: int = None,
     keep_pct: float = 1.0,
     num_workers: int = 8,
@@ -19,26 +17,28 @@ def get_colorize_data(
 ) -> ImageDataBunch:
     
     src = (
-        ImageImageList.from_folder(path, convert_mode='RGB')
+        ImageImageList.from_folder(bw_path, convert_mode='RGB')
         .use_partial_data(sample_pct=keep_pct, seed=random_seed)
         .split_by_rand_pct(0.1, seed=random_seed)
     )
+
     data = (
-        src.label_from_func(lambda x: x)
+        src.label_from_func(lambda x: color_path / x.relative_to(bw_path))
         .transform(
-            get_transforms(
-                use_grayscale=True, xtra_tfms=xtra_tfms
-            ), 
-            size=sz, 
-            tfm_y=False
+            get_transforms(),
+            size=sz,
+            tfm_y=False,
         )
         .databunch(bs=bs, num_workers=num_workers, no_check=True)
-        .normalize(stats, do_y=False)
+        .normalize(stats, do_y=True)
     )
+
     data.c = 3
     return data
+
+
 def get_dummy_databunch() -> ImageDataBunch:
     path = Path('./dummy/')
     return get_colorize_data(
-        sz=1, bs=1, path=path, keep_pct=0.001
+        sz=1, bs=1, crappy_path=path, good_path=path, keep_pct=0.001
     )
