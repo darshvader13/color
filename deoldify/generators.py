@@ -9,9 +9,9 @@ from .unet import DynamicUnetWide, DynamicUnetDeep
 from .dataset import *
 
 def gen_inference_new(
-    data, root_folder: Path, weights_name: str, arch=models.resnet34, nf_factor: float = 1.5) -> Learner:
+    data, root_folder: Path, weights_name: str, arch=models.resnet34, nf_factor: float = 1.5, gen_loss=F.l1_loss) -> Learner:
     learn = gen_learner_deep(
-        data=data, gen_loss=F.l1_loss, nf_factor=nf_factor, arch=arch
+        data=data, gen_loss=gen_loss, nf_factor=nf_factor, arch=arch
     )
     learn.path = root_folder
     learn.load(weights_name)
