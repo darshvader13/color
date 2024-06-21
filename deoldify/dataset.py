@@ -24,13 +24,9 @@ def get_colorize_data(
 
     data = (
         src.label_from_func(lambda x: color_path / x.relative_to(bw_path))
-        .transform(
-            get_transforms(),
-            size=sz,
-            tfm_y=False,
-        )
+        
         .databunch(bs=bs, num_workers=num_workers, no_check=False)
-        .normalize(stats, do_y=False)
+        .normalize(stats, do_y=True)
     )
 
     data.c = 3
