@@ -18,6 +18,16 @@ def gen_inference_new(
     learn.model.eval()
     return learn
 
+def gen_learner_new(
+    data, root_folder: Path, weights_name: str, arch=models.resnet34, nf_factor: float = 1.5, gen_loss=F.l1_loss) -> Learner:
+    learn = gen_learner_deep(
+        data=data, gen_loss=gen_loss, nf_factor=nf_factor, arch=arch
+    )
+    learn.path = root_folder
+    learn.load(weights_name)
+    learn.model.train()
+    return learn
+
 # Weights are implicitly read from ./models/ folder
 def gen_inference_wide(
     root_folder: Path, weights_name: str, nf_factor: int = 2, arch=models.resnet101) -> Learner:
