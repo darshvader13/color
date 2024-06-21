@@ -29,8 +29,8 @@ def get_colorize_data(
             size=sz,
             tfm_y=False,
         )
-        .databunch(bs=bs, num_workers=num_workers, no_check=True)
-        .normalize(stats, do_y=True)
+        .databunch(bs=bs, num_workers=num_workers, no_check=False)
+        .normalize(stats, do_y=False)
     )
 
     data.c = 3
