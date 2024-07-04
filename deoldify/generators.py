@@ -10,6 +10,8 @@ from .dataset import *
 
 def gen_inference_new(
     data, root_folder: Path, weights_name: str, arch=models.resnet34, nf_factor: float = 1.5, gen_loss=F.l1_loss) -> Learner:
+    if not data:
+        data = get_dummy_databunch()
     learn = gen_learner_deep(
         data=data, gen_loss=gen_loss, nf_factor=nf_factor, arch=arch
     )
@@ -20,6 +22,8 @@ def gen_inference_new(
 
 def gen_learner_new(
     data, root_folder: Path, weights_name: str, arch=models.resnet34, nf_factor: float = 1.5, gen_loss=F.l1_loss) -> Learner:
+    if not data:
+        data = get_dummy_databunch()
     learn = gen_learner_deep(
         data=data, gen_loss=gen_loss, nf_factor=nf_factor, arch=arch
     )

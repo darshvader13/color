@@ -2,7 +2,7 @@ from fastai.core import *
 from fastai.vision import *
 from matplotlib.axes import Axes
 from .filters import IFilter, MasterFilter, ColorizerFilter
-from .generators import gen_inference_deep, gen_inference_wide
+from .generators import gen_inference_deep, gen_inference_wide, gen_inference_new
 from PIL import Image
 import ffmpeg
 import yt_dlp as youtube_dl
@@ -463,6 +463,17 @@ def get_artistic_image_colorizer(
     render_factor: int = 35
 ) -> ModelImageVisualizer:
     learn = gen_inference_deep(root_folder=root_folder, weights_name=weights_name)
+    filtr = MasterFilter([ColorizerFilter(learn=learn)], render_factor=render_factor)
+    vis = ModelImageVisualizer(filtr, results_dir=results_dir)
+    return vis
+
+def get_new_image_colorizer(
+    root_folder: Path = Path('./'),
+    weights_name: str = 'ColorizeArtistic_gen',
+    results_dir='result_images',
+    render_factor: int = 35
+) -> ModelImageVisualizer:
+    learn = gen_inference_new(root_folder=root_folder, weights_name=weights_name)
     filtr = MasterFilter([ColorizerFilter(learn=learn)], render_factor=render_factor)
     vis = ModelImageVisualizer(filtr, results_dir=results_dir)
     return vis
