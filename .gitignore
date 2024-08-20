@@ -115,12 +115,7 @@ result_images
 *.prof
 *.pth
 video
-test_images/*.jpg
-test_images/*.JPG
-test_images/*.PNG
-test_images/*.png
-test_images/*.jpeg
-test_images/*.JPEG 
+
 deoldify/.ipynb_checkpoints/*-checkpoint.py
 tmp*
 color.pem
