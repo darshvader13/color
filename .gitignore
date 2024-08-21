@@ -119,3 +119,4 @@ video
 deoldify/.ipynb_checkpoints/*-checkpoint.py
 tmp*
 color.pem
+colorize/
